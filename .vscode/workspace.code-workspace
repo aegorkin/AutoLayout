@@ -1,0 +1,21 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"java.project.sourcePaths": [
+			"src"
+		],
+		"java.project.outputPath": "bin",
+		"java.project.referencedLibraries": [
+			"lib/**/*.jar",
+			"c:\\soft\\processing-4.0b2\\core\\library\\core.jar",
+			"c:\\soft\\processing-4.0b2\\modes\\java\\libraries\\serial\\library\\jssc.jar",
+			"c:\\soft\\processing-4.0b2\\modes\\java\\libraries\\serial\\library\\serial.jar",
+			"c:\\soft\\processing-4.0b2\\modes\\java\\libraries\\serial\\library\\windows32\\jssc.dll",
+			"c:\\soft\\processing-4.0b2\\modes\\java\\libraries\\net\\library\\net.jar"
+		]
+	}
+}
