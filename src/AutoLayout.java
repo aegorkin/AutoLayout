@@ -83,7 +83,7 @@ public class AutoLayout extends PApplet {
 	}
 
 	public static void main(String[] args) {
-		String[] processingArgs = { "MySketch" };
+		String[] processingArgs = { "AutoLayout" };
 		AutoLayout mySketch = new AutoLayout();
 		PApplet.runSketch(processingArgs, mySketch);
 	}

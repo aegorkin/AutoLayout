@@ -75,8 +75,7 @@ public class LayoutManager {
 			this.dim = d;
 		}
 
-		public Rect getRect() // возвращает прямоугольник баббла
-		{
+		public Rect getRect() { // возвращает прямоугольник баббла
 			PVector halfDim = PVector.mult(this.dim, 0.5f);
 
 			PVector min = PVector.sub(this.pos, halfDim);
@@ -85,8 +84,7 @@ public class LayoutManager {
 			return new Rect(min, max);
 		}
 
-		public Rect getMarginRect(float margin) // возвращает прямоугольник с полями
-		{
+		public Rect getMarginRect(float margin) { // возвращает прямоугольник с полями
 			Rect rect = this.getRect();
 
 			PVector marginVec = new PVector(margin, margin);
@@ -257,8 +255,7 @@ public class LayoutManager {
 		this.uiElements.add(new Rect(this.viewport.min.x, this.viewport.max.y - 200, this.viewport.min.x + 300, this.viewport.max.y));
 	}
 
-	public void resetBubbles()
-	{
+	public void resetBubbles() {
 		this.pins.clear();
 		this.bubbles.clear();
 
@@ -427,18 +424,19 @@ public class LayoutManager {
 		boolean hasSilhouetteIntersection = false;
 		float silCoveredPercentage = 0.0f;
 
-		for(SilhouettePoint point: this.silPoints) {
+		for(SilhouettePoint point : this.silPoints) {
 			Rect intersectionRect = silColRect.getIntersection(point.rect);
 
-			if(intersectionRect.isEmpty())
+			if(intersectionRect.isEmpty()) // выталкивающая сила действует только от перекрытых бабблом точек
 				continue;
 
 			hasSilhouetteIntersection = true;
 
 			PVector intersectionCenter = intersectionRect.getCenter();
 
-			PVector dir = PVector.sub(bubble.pos, intersectionCenter);
+			PVector dir = PVector.sub(bubble.pos, intersectionCenter); // направление действия силы - между бабблом и центром пересечения
 
+			// сила выталкивания пропорциональна площади перекрытия бабблом точки силуета и весу точки
 			float weightedSquare = intersectionRect.getSquare()*point.weight;
 
 			silCoveredPercentage += weightedSquare;
@@ -512,7 +510,7 @@ public class LayoutManager {
 			float dist =  (float)Math.sqrt(sqrDist);
 			float cubedDist = sqrDist*dist;
 
-			// чтобы было удобно подбирать порядок силы
+			// чтобы было удобно подбирать порядок силы. на данный момент наиболее удачным является 1/sqr(dist)
 			float invDist = dist < 0.001f ? 1.0f : 1.0f/dist;
 			float invSqrDist = sqrDist < 0.001f ? 1.0f : 1.0f/sqrDist;
 			float invCubedDist = cubedDist < 0.001f ? 1.0f : 1.0f/cubedDist;
@@ -521,7 +519,7 @@ public class LayoutManager {
 
 			dir.normalize();
 
-			resultForce.add(PVector.mult(dir, invSqrDist*2000.0f));
+			resultForce.add(PVector.mult(dir, invSqrDist*2000.0f)); // коэф можно изменить
 		}
 
 		resultForce.mult(this.FORCE_FACTOR_BUBBLE_LONGRANGE);
@@ -555,7 +553,7 @@ public class LayoutManager {
 
 			dir.normalize();
 
-			resultForce.add(PVector.mult(dir, 1.0f));
+			resultForce.add(dir);
 		}
 
 		resultForce.normalize();
@@ -585,7 +583,7 @@ public class LayoutManager {
 
 			dir.normalize();
 
-			resultForce.add(PVector.mult(dir, 1.0f));
+			resultForce.add(dir);
 		}
 
 		resultForce.normalize();
